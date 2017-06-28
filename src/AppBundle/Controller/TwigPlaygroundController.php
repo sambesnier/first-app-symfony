@@ -8,7 +8,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class TwigPlaygroundController extends Controller
 {
     /**
-     * @Route("/playground")
+     * @Route(
+     *     "/playground",
+     *     name="playground"
+     * )
      */
     public function playgroundAction()
     {
