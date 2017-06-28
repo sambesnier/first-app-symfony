@@ -11,6 +11,8 @@ class DefaultController extends Controller
 {
     /**
      * @Route("/", name="homepage")
+     * @param Request $request
+     * @return Response
      */
     public function indexAction(Request $request)
     {
@@ -21,11 +23,34 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/hello", name="hello")
+     * @Route(
+     *     "/hello/{name}/{age}/{countryCode}",
+     *     name="hello",
+     *     defaults=
+     *     {
+     *          "name":"world",
+     *          "age":"99",
+     *          "countryCode":"fr"
+     *     },
+     *     requirements=
+     *     {
+     *          "age":"\d{1,3}",
+     *          "countryCode":"fr|be|es"
+     *     }
+     * )
+     * @param string $name
+     * @param int $age
+     * @param string $countryCode
      * @return Response
      */
-    public function helloAction() {
-        $response = new Response("Hello");
+    public function helloAction(string $name, int $age, string $countryCode) {
+        $nationalities = [
+            "fr" => "Française",
+            "es" => "Espagnole",
+            "be" => "Belge"
+        ];
+
+        $response = new Response("Hello $name vous avez $age ans et êtes de nationalité $nationalities[$countryCode]");
 
         return $response;
     }

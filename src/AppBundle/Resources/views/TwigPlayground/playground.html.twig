@@ -1,0 +1,31 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}AppBundle:TwigPlayground:playground{% endblock %}
+
+{% block body %}
+<h1>Welcome to the TwigPlayground:playground page</h1>
+    <p>Bonjour {{ nom | upper }}</p>
+    <p>Nous sommes le {{ now | date('l m Y') }}</p>
+
+    <p>Le premier truc est {{ inventary | first }}</p>
+    <p>Le dernier truc est {{ inventary | last }}</p>
+
+    <ul>
+        {% for stuff in inventary %}
+            <li>{{ stuff }}</li>
+        {% endfor %}
+    </ul>
+
+    <ul>
+        {% for nombre in 1..10 %}
+            <li>{{ nombre }}</li>
+        {% endfor %}
+    </ul>
+
+    <ul>
+        {% for lettre in 'a'..'z' %}
+            <li>{{ lettre }}</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
