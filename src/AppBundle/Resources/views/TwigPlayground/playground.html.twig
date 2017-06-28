@@ -10,6 +10,38 @@
     <p>Le premier truc est {{ inventary | first }}</p>
     <p>Le dernier truc est {{ inventary | last }}</p>
 
+    <p>{{ client.firstname | capitalize }} {{ client.name | upper }}</p>
+    <p>
+        {{ client.address.path }}
+        {{ client.address.zipcode }}
+        {{ client.address.city }}
+    </p>
+
+    <style>
+        .pair {
+            background-color: #6897BB;
+        }
+    </style>
+
+    <table>
+        <tr>
+            <th>Index</th>
+            <th>Nom</th>
+            <th>Origine</th>
+            <th>Cépage</th>
+        </tr>
+        {% for wine in cave if wine.cepage == 'Chardonay' %}
+            <tr class="{{ loop.index is divisible by(3) ? "pair" : "" }}">
+                <td>{{ loop.index }}</td>
+                <td>{{ wine.name }}</td>
+                <td>{{ wine.origin }}</td>
+                <td>{{ wine.cepage }}</td>
+            </tr>
+        {% else %}
+            <p>Aucun vin dans la cave</p>
+        {% endfor %}
+    </table>
+
     <ul>
         {% for stuff in inventary %}
             <li>{{ stuff }}</li>
