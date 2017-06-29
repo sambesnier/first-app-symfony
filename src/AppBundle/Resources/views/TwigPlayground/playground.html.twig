@@ -1,4 +1,4 @@
-{% extends "::base.html.twig" %}
+{% extends "::base-layout.html.twig" %}
 
 {% block title %}AppBundle:TwigPlayground:playground{% endblock %}
 
@@ -39,7 +39,7 @@
 
     {% import _self as macro %}
 
-    <table>
+    <table class="table table-striped">
         <tr>
             <th>Index</th>
             <th>Nom</th>

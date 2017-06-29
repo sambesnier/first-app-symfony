@@ -3,11 +3,63 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('dependencies/bootstrap/dist/css/bootstrap.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('dependencies/bootstrap/dist/css/bootstrap-theme.min.css') }}">
+            <style>
+                .page-wrapper {
+                    padding-top: 75px;
+                    padding-bottom: 75px;
+                }
+
+                body {
+                    background-color: #dbd7cc;
+                }
+
+                footer {
+                    position: fixed;
+                    bottom: 0;
+                    left: 0;
+                    background-color: #0f0f0f;
+                    color: white;
+                    width: 100%;
+                    text-align: center;
+                    padding: 25px;
+                }
+
+            </style>
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+    <body class="container-fluid">
+    {% block nav %}
+    {% include 'partials/_nav.html.twig' %}
+    {% endblock %}
+    <div class="row page-wrapper">
+        <div class="col-md-10 col-md-offset-1">
+            <header>
+                {% block header %}
+                    <h1>Mon super site</h1>
+                {% endblock %}
+            </header>
+
+            <section class="col-md-8">
+                {% block body %}{% endblock %}
+            </section>
+
+            <aside class="col-md-4">
+                {% block aside %}{% endblock %}
+            </aside>
+        </div>
+    </div>
+    <footer>
+        {% block footer %}
+            copyright © : Besnier Samuel
+        {% endblock %}
+    </footer>
+        {% block javascripts %}
+            <script src="{{ asset('dependencies/jquery/dist/jquery.min.js') }}"></script>
+            <script src="{{ asset('dependencies/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+        {% endblock %}
     </body>
 </html>
