@@ -1,6 +1,8 @@
-{% extends "::base.html.twig" %}
+{% extends "::base-layout.html.twig" %}
 
-{% block title %}AppBundle:Calculator:add{% endblock %}
+{% block title %}
+{{ parent() }} to the calculator
+{% endblock %}
 
 {% block body %}
 <h1>Welcome to the Calculator:add page</h1>

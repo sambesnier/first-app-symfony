@@ -35,27 +35,32 @@ class TwigPlaygroundController extends Controller
             [
                 "name" => "Poully fumé",
                 "origin" => "Bourgogne",
-                "cepage" => "Chardonay"
+                "cepage" => "Chardonay",
+                "price" => 12
             ],
             [
                 "name" => "Mouton Cadet",
                 "origin" => "Bordeau",
-                "cepage" => "Cabernet"
+                "cepage" => "Cabernet",
+                "price" => 35
             ],
             [
                 "name" => "Arbois Pupillin",
                 "origin" => "Arbois",
-                "cepage" => "Chardonay"
+                "cepage" => "Chardonay",
+                "price" => 20
             ],
             [
                 "name" => "Vin jaune",
                 "origin" => "Arbois",
-                "cepage" => "Savagnin"
+                "cepage" => "Savagnin",
+                "price" => 28
             ],
             [
                 "name" => "Nuit Saint Georges",
                 "origin" => "Bourgogne",
-                "cepage" => "Pinot noir"
+                "cepage" => "Pinot noir",
+                "price" => 25
             ]
         ];
 

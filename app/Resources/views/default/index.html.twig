@@ -17,8 +17,14 @@
             </div>
 
             <div>
+                {% set operande1 = 6 %}
+                {% set operande2 = 8 %}
                 <a href="{{ path('playground') }}">
                     Lien vers le playground Twig
+                </a>
+                <br>
+                <a href="{{ path('calc_add', {'n1': operande1, 'n2': operande2}) }}">
+                    Trois plus cinq
                 </a>
             </div>
 

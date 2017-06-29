@@ -27,23 +27,37 @@
         }
     </style>
 
+    {% macro table_row(index, name, origin, cepage, price) %}
+        <tr class="{{ index is even ? "pair" : "" }}">
+            <td>{{ index }}</td>
+            <td>{{ name }}</td>
+            <td>{{ origin }}</td>
+            <td>{{ cepage }}</td>
+            <td>{{ price }}</td>
+        </tr>
+    {% endmacro %}
+
+    {% import _self as macro %}
+
     <table>
         <tr>
             <th>Index</th>
             <th>Nom</th>
             <th>Origine</th>
             <th>Cépage</th>
+            <th>Prix</th>
         </tr>
-        {% for wine in cave if wine.cepage == 'Chardonay' %}
-            <tr class="{{ loop.index is divisible by(3) ? "pair" : "" }}">
-                <td>{{ loop.index }}</td>
-                <td>{{ wine.name }}</td>
-                <td>{{ wine.origin }}</td>
-                <td>{{ wine.cepage }}</td>
-            </tr>
+        {% set total = 0 %}
+
+        {% for wine in cave %}
+            {{ macro.table_row(loop.index, wine.name, wine.origin, wine.cepage, wine.price) }}
+            {% set total = total + wine.price %}
         {% else %}
             <p>Aucun vin dans la cave</p>
         {% endfor %}
+        <td colspan="3"></td>
+        <td><b>TOTAL</b></td>
+        <td><b>{{ total }}</b></td>
     </table>
 
     <ul>
