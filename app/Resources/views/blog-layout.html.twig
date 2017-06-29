@@ -1,0 +1,15 @@
+{% extends 'base-layout.html.twig' %}
+
+{% block aside %}
+    <h3>Les tags</h3>
+    <hr>
+    <ul>
+        {% for tag in tags %}
+            <li>
+                <a href="{{ path('posts_by_tag', { 'tag': tag }) }}">
+                    {{ tag }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

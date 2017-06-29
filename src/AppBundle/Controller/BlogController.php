@@ -2,7 +2,6 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
@@ -10,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  * @package AppBundle\Controller
  * @Route("/blog")
  */
-class BlogController extends Controller
+class BlogController extends AbstractBlogController
 {
     /**
      * @Route(
@@ -20,9 +19,9 @@ class BlogController extends Controller
      */
     public function listAction()
     {
-        return $this->render('AppBundle:Blog:list.html.twig', array(
+        return $this->render('AppBundle:Blog:list.html.twig', [
 
-        ));
+        ]);
     }
 
     /**
@@ -33,9 +32,22 @@ class BlogController extends Controller
      */
     public function detailsAction()
     {
-        return $this->render('AppBundle:Blog:details.html.twig', array(
+        return $this->render('AppBundle:Blog:details.html.twig', [
 
-        ));
+        ]);
     }
 
+    /**
+     * Posts list by tag
+     * @Route(
+     *     "/posts-by-tag/{tag}",
+     *     name="posts_by_tag"
+     * )
+     * @param $tag
+     */
+    public function postsByTagAction($tag) {
+        return $this->render('AppBundle:Blog:by-tag.html.twig', [
+            "currentTag" => $tag
+        ]);
+    }
 }
