@@ -1,0 +1,25 @@
+Tags:
+    type: entity
+    table: tags
+    uniqueConstraints:
+        tag_name_UNIQUE:
+            columns:
+                - tag_name
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: true
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        tagName:
+            type: string
+            nullable: false
+            length: 45
+            options:
+                fixed: false
+            column: tag_name
+    lifecycleCallbacks: {  }

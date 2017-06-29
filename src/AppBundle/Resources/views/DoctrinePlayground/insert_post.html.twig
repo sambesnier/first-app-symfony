@@ -1,7 +1,27 @@
-{% extends "::base.html.twig" %}
+{% extends "::base-layout.html.twig" %}
 
 {% block title %}AppBundle:DoctrinePlayground:insertPost{% endblock %}
 
 {% block body %}
 <h1>Welcome to the DoctrinePlayground:insertPost page</h1>
+
+    {{ post.title }}
+
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Titre</th>
+            <th>Texte</th>
+            <th>Date de création</th>
+            <th>Date de mise à jour</th>
+        </tr>
+        {% for p in allPosts %}
+            <tr>
+                <td>{{ p.title }}</td>
+                <td>{{ p.content }}</td>
+                <td>{{ p.createdAt | date }}</td>
+                <td>{{ p.updatedAt is null ? "-" : p.updatedAt | date }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
 {% endblock %}
