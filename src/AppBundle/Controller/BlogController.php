@@ -58,11 +58,22 @@ class BlogController extends AbstractBlogController
      */
     public function postsByTagAction($tagName) {
 
-        $repo = $this->getDoctrine()->getRepository("AppBundle:Tag");
+        // Get posts with Tag object
+        /*$repo = $this->getDoctrine()->getRepository("AppBundle:Tag");
 
         $tag = $repo->findOneBy(["tagName"=> $tagName]);
 
-        $posts = $tag->getPosts();
+        $posts = $tag->getPosts();*/
+
+        // Get posts with query builder
+        $repo = $this->getDoctrine()->getRepository("AppBundle:Post");
+
+        $query = $repo->createQueryBuilder('p')
+            ->innerJoin('p.tags', 't', 'WITH', 't.tagName = :tagName')
+            ->setParameter('tagName', $tagName)
+            ->getQuery();
+
+        $posts = $query->getResult();
 
         return $this->render('AppBundle:Blog:by-tag.html.twig', [
             "currentTag" => $tagName,

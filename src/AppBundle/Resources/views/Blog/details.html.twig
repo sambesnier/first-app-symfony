@@ -6,10 +6,12 @@
     <h1>{{ post.title }}</h1>
     <h3>Par : {{ post.author.name }}</h3>
     <p>Le : {{ post.createdAt | date('l m Y') }}</p>
-    <p>Tags :
+    <ul class="list-inline">
         {% for tag in postTags %}
-            <a href="{{ path('posts_by_tag', {'tagName': tag.tagName }) }}">{{ tag.tagName }}</a>
+            <li>
+                <a href="{{ path('posts_by_tag', {'tagName': tag.tagName }) }}">{{ tag.tagName }}</a>
+            </li>
         {% endfor %}
-    </p>
+    </ul>
     <p>{{ post.content }}</p>
 {% endblock %}
