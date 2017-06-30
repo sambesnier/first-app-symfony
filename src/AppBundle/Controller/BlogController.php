@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Post;
+use AppBundle\Entity\Tag;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
@@ -19,35 +21,49 @@ class BlogController extends AbstractBlogController
      */
     public function listAction()
     {
-        return $this->render('AppBundle:Blog:list.html.twig', [
+        $repo = $this->getDoctrine()->getRepository("AppBundle:Post");
 
+        $posts = $repo->findAll();
+
+        return $this->render('AppBundle:Blog:list.html.twig', [
+            "posts" => $posts
         ]);
     }
 
     /**
      * @Route(
-     *     "/details",
+     *     "/details/{id}",
      *     name="blog_details"
      * )
      */
-    public function detailsAction()
+    public function detailsAction(Post $post)
     {
         return $this->render('AppBundle:Blog:details.html.twig', [
-
+            "post" => $post
         ]);
     }
 
     /**
      * Posts list by tag
      * @Route(
-     *     "/posts-by-tag/{tag}",
+     *     "/posts-by-tag/{tagName}",
      *     name="posts_by_tag"
      * )
-     * @param $tag
+     * @param $tagName
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @internal param $tag
      */
-    public function postsByTagAction($tag) {
+    public function postsByTagAction($tagName) {
+
+        $repo = $this->getDoctrine()->getRepository("AppBundle:Tag");
+
+        $tag = $repo->findOneBy(["tagName"=> $tagName]);
+
+        $posts = $tag->getPosts();
+
         return $this->render('AppBundle:Blog:by-tag.html.twig', [
-            "currentTag" => $tag
+            "currentTag" => $tagName,
+            "posts" => $posts
         ]);
     }
 }

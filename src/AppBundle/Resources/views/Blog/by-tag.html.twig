@@ -1,10 +1,19 @@
 {% extends '::blog-layout.html.twig' %}
 
+{% block title %}{{ currentTag }}{% endblock %}
+
 {% block body %}
     <h1>Liste des articles par tag : {{ currentTag }}</h1>
-{% endblock %}
 
-{% block title %}
+    <ul>
+        {% for post in posts %}
+            <li>
+                <a href="{{ path('blog_details', {'id': post.id }) }}">
+                    {{ post.title }} par : {{ post.author.name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
 
 {% endblock %}
 

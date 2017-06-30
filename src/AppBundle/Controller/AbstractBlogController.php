@@ -19,6 +19,7 @@ abstract class AbstractBlogController extends Controller
      * @param string $view
      * @param array $parameters
      * @param Response|null $response
+     * @return Response
      */
     public function render($view, array $parameters = array(), Response $response = null) {
         $parameters["tags"] = $this->getTags();
@@ -33,13 +34,9 @@ abstract class AbstractBlogController extends Controller
      * @return array
      */
     private function getTags() {
-        return [
-            "Java",
-            "PHP",
-            "Ruby",
-            "Python",
-            "C++",
-            "Go"
-        ];
+
+        $repo = $this->getDoctrine()->getRepository("AppBundle:Tag");
+
+        return $repo->findAll();
     }
 }

@@ -4,4 +4,15 @@
 
 {% block body %}
     <h1>Welcome to the Blog:list page</h1>
+
+    <ul>
+    {% for post in posts %}
+        <li>
+            <a href="{{ path('blog_details', {'id': post.id }) }}">
+                {{ post.title }} par : {{ post.author.name }}
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+
 {% endblock %}

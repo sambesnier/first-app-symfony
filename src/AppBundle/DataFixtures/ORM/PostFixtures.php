@@ -14,7 +14,7 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class ArticleFixtures extends AbstractFixture implements OrderedFixtureInterface
+class PostFixtures extends AbstractFixture implements OrderedFixtureInterface
 {
 
     /**
@@ -30,15 +30,19 @@ class ArticleFixtures extends AbstractFixture implements OrderedFixtureInterface
         {
             $post = new Post();
             $post->setAuthor($this->getReference("author_".$i))
-                ->setTitle($faker->realText(200))
-                ->setContent($faker->realText(500));
+                ->setTitle($faker->realText(80))
+                ->setContent($faker->realText(500))
+                ->addTag($this->getReference("tag_php"))
+                ->addTag($this->getReference("tag_prog"));
 
             $manager->persist($post);
 
             $post = new Post();
             $post->setAuthor($this->getReference("author_".$i))
-                ->setTitle($faker->realText(200))
-                ->setContent($faker->realText(500));
+                ->setTitle($faker->realText(80))
+                ->setContent($faker->realText(500))
+                ->addTag($this->getReference("tag_prog"))
+                ->addTag($this->getReference("tag_angular"));
 
             $manager->persist($post);
         }
@@ -46,15 +50,19 @@ class ArticleFixtures extends AbstractFixture implements OrderedFixtureInterface
         {
             $post = new Post();
             $post->setAuthor($this->getReference("author_".($i+10)))
-                ->setTitle($faker->realText(200))
-                ->setContent($faker->realText(500));
+                ->setTitle($faker->realText(80))
+                ->setContent($faker->realText(500))
+                ->addTag($this->getReference("tag_linux"));
 
             $manager->persist($post);
 
             $post = new Post();
             $post->setAuthor($this->getReference("author_".($i+10)))
-                ->setTitle($faker->realText(200))
-                ->setContent($faker->realText(500));
+                ->setTitle($faker->realText(80))
+                ->setContent($faker->realText(500))
+                ->addTag($this->getReference("tag_prog"))
+                ->addTag($this->getReference("tag_javascript"))
+                ->addTag($this->getReference("tag_php"));
 
             $manager->persist($post);
         }

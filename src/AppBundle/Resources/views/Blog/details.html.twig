@@ -1,7 +1,10 @@
 {% extends "::blog-layout.html.twig" %}
 
-{% block title %}AppBundle:Blog:details{% endblock %}
+{% block title %}{{ post.title }}{% endblock %}
 
 {% block body %}
-<h1>Welcome to the Blog:details page</h1>
+    <h1>{{ post.title }}</h1>
+    <h3>Par : {{ post.author.name }}</h3>
+    <p>Le : {{ post.createdAt | date('l m Y') }}</p>
+    <p>{{ post.content }}</p>
 {% endblock %}
