@@ -38,8 +38,11 @@ class BlogController extends AbstractBlogController
      */
     public function detailsAction(Post $post)
     {
+        $tags = $post->getTags();
+
         return $this->render('AppBundle:Blog:details.html.twig', [
-            "post" => $post
+            "post" => $post,
+            "postTags" => $tags
         ]);
     }
 
