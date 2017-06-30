@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -48,6 +49,24 @@ class Post
      * @ORM\Column(name="updatedAt", type="datetime", nullable=true)
      */
     private $updatedAt;
+
+    /**
+     * @var Author
+     *
+     * @ORM\ManyToOne(
+     *     targetEntity="AppBundle\Entity\Author",
+     *     inversedBy="posts")
+     */
+    private $author;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(
+     *     targetEntity="AppBundle\Entity\Tag",
+     *     inversedBy="posts")
+     */
+    private $tags;
 
 
     /**
@@ -155,5 +174,69 @@ class Post
     {
         return $this->updatedAt;
     }
-}
 
+    /**
+     * Set author
+     *
+     * @param \AppBundle\Entity\Author $author
+     *
+     * @return Post
+     */
+    public function setAuthor(\AppBundle\Entity\Author $author = null)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return \AppBundle\Entity\Author
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add tag
+     *
+     * @param \AppBundle\Entity\Tag $tag
+     *
+     * @return Post
+     */
+    public function addTag(\AppBundle\Entity\Tag $tag)
+    {
+        $this->tags[] = $tag;
+
+        return $this;
+    }
+
+    /**
+     * Remove tag
+     *
+     * @param \AppBundle\Entity\Tag $tag
+     */
+    public function removeTag(\AppBundle\Entity\Tag $tag)
+    {
+        $this->tags->removeElement($tag);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+}
