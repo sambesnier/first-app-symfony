@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Author
@@ -25,12 +26,23 @@ class Author
     /**
      * @var string
      *
+     * @Assert\NotBlank(message="Le nom ne peut pas être vide")
+     * @Assert\Length(
+     *     min="2",
+     *     minMessage="Le nom doit comporter au moins {{ limit }} caractères",
+     *     max="45",
+     *     maxMessage="Le nom ne peut pas comporter plus de {{ limit }} caractères"
+     * )
+     *
      * @ORM\Column(name="name", type="string", length=45)
      */
     private $name;
 
     /**
      * @var \DateTime
+     *
+     * @Assert\NotBlank(message="Vous devez entrer une date")
+     * @Assert\Date(message="Vous devez entrer une date valide")
      *
      * @ORM\Column(name="birth_date", type="date", nullable=true)
      */
@@ -39,12 +51,23 @@ class Author
     /**
      * @var string
      *
+     * @Assert\Choice(
+     *     { "M", "F" },
+     *     message="Le sexe doit être M ou F"
+     * )
+     *
      * @ORM\Column(name="gender", type="string", length=1)
      */
     private $gender;
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank(
+     *     message="Vous devez entrer un email")
+     * @Assert\Email(
+     *     message="Vous devez entrer un email valide"
+     * )
      *
      * @ORM\Column(name="email", type="string", length=45, unique=true)
      */

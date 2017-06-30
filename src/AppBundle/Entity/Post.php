@@ -4,12 +4,14 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Post
  *
  * @ORM\Table(name="posts")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PostRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Post
 {
@@ -25,12 +27,21 @@ class Post
     /**
      * @var string
      *
+     * @Assert\NotBlank(message="Le titre ne peut être vide")
+     * @Assert\Length(
+     *     min="5",
+     *     minMessage="Le titre doit faire plus de {{ limit }} caractères",
+     *     max="255",
+     *     maxMessage="Le titre ne peut dépasser {{ limit }} caractères")
+     *
      * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
 
     /**
      * @var string
+     *
+     * @Assert\NotBlank(message="Un article doit comporter un texte")
      *
      * @ORM\Column(name="content", type="text")
      */
@@ -56,15 +67,23 @@ class Post
      * @ORM\ManyToOne(
      *     targetEntity="AppBundle\Entity\Author",
      *     inversedBy="posts")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $author;
 
     /**
      * @var ArrayCollection
      *
+     * @Assert\Count(
+     *     max="5",
+     *     maxMessage="Vous ne pouvez pas ajouter plus de {{ limit }} tags",
+     *     min="1",
+     *     minMessage="Vous devez ajouter au moins un tag")
+     *
      * @ORM\ManyToMany(
      *     targetEntity="AppBundle\Entity\Tag",
-     *     inversedBy="posts")
+     *     inversedBy="posts",
+     *     cascade={"persist"})
      */
     private $tags;
 
@@ -238,5 +257,25 @@ class Post
     public function getTags()
     {
         return $this->tags;
+    }
+
+    /**
+     * Set creation date when new post insertion
+     *
+     * @ORM\PrePersist()
+     */
+    public function prePersistEvent()
+    {
+        $this->createdAt = new \DateTime();
+    }
+
+    /**
+     * Set updated date when a post is updated
+     *
+     * @ORM\PreUpdate()
+     */
+    public function preUpdateEvent()
+    {
+        $this->updatedAt = new \DateTime();
     }
 }
