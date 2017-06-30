@@ -75,7 +75,7 @@ class BlogController extends AbstractBlogController
 
         $posts = $query->getResult();
 
-        return $this->render('AppBundle:Blog:by-tag.html.twig', [
+        return $this->render('@App/Blog/list.html.twig', [
             "currentTag" => $tagName,
             "posts" => $posts
         ]);

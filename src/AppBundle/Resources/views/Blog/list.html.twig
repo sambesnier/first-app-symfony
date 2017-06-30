@@ -3,7 +3,12 @@
 {% block title %}AppBundle:Blog:list{% endblock %}
 
 {% block body %}
-    <h1>Welcome to the Blog:list page</h1>
+
+    {% if currentTag is defined %}
+        <h1>Liste des articles par tag : {{ currentTag }}</h1>
+    {% else %}
+        <h1>Welcome to the Blog</h1>
+    {% endif %}
 
     <ul>
     {% for post in posts %}
