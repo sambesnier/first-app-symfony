@@ -11,10 +11,16 @@ security:
                     user:   { password: 1234, roles: ['ROLE_USER'] }
                     admin:  { password: 1234, roles: ['ROLE_ADMIN'] }
                     god:    { password: 1234, roles: ['ROLE_SUPER_ADMIN'] }
+        author_provider:
+            entity:
+                class: AppBundle:Author
+                property: email
 
     # Password encoding
     encoders:
         Symfony\Component\Security\Core\User\User: plaintext
+        AppBundle\Entity\Author:
+            algorithm: bcrypt
 
     role_hierarchy:
         ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
@@ -40,7 +46,14 @@ security:
         author:
             pattern: ^/author
             anonymous: false
-            provider:
+            provider: author_provider
+            form_login:
+                login_path: login_author
+                check_path: login_author_check
+                default_target_path: /author
+            logout:
+                path: logout_author
+                target: blog_list
 
         main:
             anonymous: ~

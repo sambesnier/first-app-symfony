@@ -305,7 +305,17 @@ class Author implements \Serializable, UserInterface
      */
     public function getPassword()
     {
-        // TODO: Implement getPassword() method.
+        return $this->password;
+    }
+
+    /**
+     * @param string $password
+     * @return Author
+     */
+    public function setPassword(string $password): Author
+    {
+        $this->password = $password;
+        return $this;
     }
 
     /**
@@ -317,7 +327,7 @@ class Author implements \Serializable, UserInterface
      */
     public function getSalt()
     {
-        // TODO: Implement getSalt() method.
+        return null;
     }
 
     /**
@@ -327,7 +337,7 @@ class Author implements \Serializable, UserInterface
      */
     public function getUsername()
     {
-        // TODO: Implement getUsername() method.
+        return $this->email;
     }
 
     /**
@@ -338,6 +348,6 @@ class Author implements \Serializable, UserInterface
      */
     public function eraseCredentials()
     {
-        // TODO: Implement eraseCredentials() method.
+
     }
 }

@@ -17,6 +17,7 @@
                 <li><a href="{{ path('blog_list') }}">Blog</a></li>
                 <li><a href="{{ path('new_tag') }}">Nouveau Tag</a></li>
                 <li><a href="{{ path('new_post') }}">Nouvel article</a></li>
+                <li><a href="{{ path('author_index') }}">Auteur</a></li>
                 {% if is_granted('ROLE_ADMIN') %}
                     <li class="navbar-text">Bienvenue {{ app.user.username }}</li>
                     <li><a href="{{ path('logout_admin') }}">Déconnecter</a></li>

@@ -67,6 +67,11 @@ class DefaultController extends Controller
 
 
         ]);
+    }
 
+    public function loginAuthorAction() {
+        return $this->render("AppBundle:Default:login-author.html.twig", [
+
+        ]);
     }
 }
