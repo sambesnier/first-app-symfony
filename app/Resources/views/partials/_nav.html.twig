@@ -17,6 +17,12 @@
                 <li><a href="{{ path('blog_list') }}">Blog</a></li>
                 <li><a href="{{ path('new_tag') }}">Nouveau Tag</a></li>
                 <li><a href="{{ path('new_post') }}">Nouvel article</a></li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="navbar-text">Bienvenue {{ app.user.username }}</li>
+                    <li><a href="{{ path('logout_admin') }}">Déconnecter</a></li>
+                {% else %}
+                    <li><a href="{{ path('admin_index') }}">Admin</a></li>
+                {% endif %}
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

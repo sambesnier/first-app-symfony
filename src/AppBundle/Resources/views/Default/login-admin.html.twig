@@ -1,0 +1,29 @@
+{% extends "base-layout.html.twig" %}
+
+{% block header %}
+    <h1>Connexion</h1>
+{% endblock %}
+
+{% block body %}
+
+    <form method="post" action="{{ path('login_admin_check') }}">
+        <div class="form-group">
+            <input type="text"
+                   class="form-control"
+                   name="_username"
+                   placeholder="Votre identifiant">
+        </div>
+        <div class="form-group">
+            <input type="password"
+                   class="form-control"
+                   name="_password"
+                   placeholder="Votre mot de passe">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">
+                Valider
+            </button>
+        </div>
+    </form>
+
+{% endblock %}

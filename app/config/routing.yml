@@ -1,3 +1,9 @@
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+
+login_admin_check:
+    path: /admin/login-check
+
+logout_admin:
+    path: /admin/logout-admin

@@ -3,15 +3,44 @@
 security:
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    # Authentication data provider
     providers:
         in_memory:
-            memory: ~
+            memory:
+                users:
+                    user:   { password: 1234, roles: ['ROLE_USER'] }
+                    admin:  { password: 1234, roles: ['ROLE_ADMIN'] }
+                    god:    { password: 1234, roles: ['ROLE_SUPER_ADMIN'] }
+
+    # Password encoding
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
+
+    role_hierarchy:
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
+        admin:
+            pattern: ^/admin
+            anonymous: false
+            provider: in_memory
+            form_login:
+                login_path: login_admin
+                check_path: login_admin_check
+                default_target_path: /admin
+            logout:
+                path: logout_admin
+                target: blog_list
+
+        author:
+            pattern: ^/author
+            anonymous: false
+            provider:
 
         main:
             anonymous: ~
@@ -22,3 +51,6 @@ security:
 
             # https://symfony.com/doc/current/security/form_login_setup.html
             #form_login: ~
+
+    access-control:
+        - { path: ^/admin, roles: 'ROLE_ADMIN' }

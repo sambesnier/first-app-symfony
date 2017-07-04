@@ -54,4 +54,19 @@ class DefaultController extends Controller
 
         return $response;
     }
+
+    /**
+     * @Route(
+     *     "/login-admin",
+     *     name="login_admin"
+     * )
+     */
+    public function loginAdminAction() {
+
+        return $this->render("AppBundle:Default:login-admin.html.twig", [
+
+
+        ]);
+
+    }
 }

@@ -13,5 +13,5 @@
             </li>
         {% endfor %}
     </ul>
-    <p>{{ post.content }}</p>
+    <p>{{ post.content | purify }}</p>
 {% endblock %}
