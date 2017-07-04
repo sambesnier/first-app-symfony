@@ -10,4 +10,10 @@ namespace AppBundle\Repository;
  */
 class AuthorRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getOnlyWomen() {
+        $qb = $this->createQueryBuilder('a')
+            ->select('a')
+            ->where("a.gender='F'");
+        return $qb;
+    }
 }

@@ -7,9 +7,38 @@
         {% for tag in tags %}
             <li>
                 <a href="{{ path('posts_by_tag', { 'tagName': tag.tagName }) }}">
-                    {{ tag.tagName }} ({{ tag.posts | length }})
+                    {{ tag.tagName }} ({{ tag.postsNumber }})
                 </a>
             </li>
         {% endfor %}
     </ul>
+    <h3>Les derniers articles</h3>
+    <hr>
+    <ul>
+        {% for post in lastPosts %}
+            <li>
+                <a href="{{ path('blog_details', {'id': post.id }) }}">
+                    {{ post.title }} le {{ post.createdAt | date('d/m/Y') }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block body %}
+    {% if app.session.flashBag.has("info") %}
+        <div class="alert alert-info">
+            {% for msg in app.session.flashBag.get("info") %}
+                <p>{{ msg }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if app.session.flashBag.has("danger") %}
+        <div class="alert alert-danger">
+            {% for msg in app.session.flashBag.get("danger") %}
+                <p>{{ msg }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
 {% endblock %}

@@ -1,6 +1,9 @@
 <?php
 
 namespace AppBundle\Repository;
+use AppBundle\{
+    Entity\Post
+};
 
 /**
  * PostRepository
@@ -10,4 +13,41 @@ namespace AppBundle\Repository;
  */
 class PostRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getAllPosts() {
+        $qb = $this
+                ->createQueryBuilder('p')
+                ->select(['p.title', 'p.id', 'p.createdAt', 'a.name as authorName'])
+                ->innerJoin('p.author', 'a');
+        return $qb->getQuery()->getArrayResult();
+    }
+
+    public function getPostsByTag($tag) {
+        $qb = $this
+            ->createQueryBuilder('p')
+            ->select(['p.title', 'p.id', 'p.createdAt', 'a.name as authorName'])
+            ->innerJoin('p.author', 'a')
+            ->innerJoin('p.tags', 't', 'WITH', 't.tagName = :tagName')
+            ->setParameter('tagName', $tag);
+        return $qb->getQuery()->getArrayResult();
+    }
+
+    public function getLastArticles($number, $tag = null) {
+        $qb = $this
+            ->createQueryBuilder('p')
+            ->select(['p.title', 'p.id', 'p.createdAt', 'a.name as authorName'])
+            ->innerJoin('p.author', 'a')
+            ->orderBy('p.createdAt', 'DESC')
+            ->setFirstResult(0)
+            ->setMaxResults($number);
+        if (empty($tag)) {
+            $query = $qb->getQuery();
+        } else {
+            $qb->innerJoin('p.tags', 't')
+                ->where('t.tagName = :tagName');
+            $query = $qb->getQuery();
+            $query->setParameter('tagName', $tag);
+        }
+
+        return $query->getResult();
+    }
 }

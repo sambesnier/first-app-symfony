@@ -24,6 +24,13 @@ abstract class AbstractBlogController extends Controller
     public function render($view, array $parameters = array(), Response $response = null) {
         $parameters["tags"] = $this->getTags();
 
+        $tag = null;
+        if (array_key_exists("currentTag", $parameters)) {
+            $tag = $parameters["currentTag"];
+        }
+
+        $parameters["lastPosts"] = $this->getLastArticles(3, $tag);
+
         return parent::render($view, $parameters, $response);
     }
 
@@ -37,6 +44,12 @@ abstract class AbstractBlogController extends Controller
 
         $repo = $this->getDoctrine()->getRepository("AppBundle:Tag");
 
-        return $repo->findAll();
+        return $repo->getAllTagsWithPostsCount();
+    }
+
+    private function getLastArticles($number, $tag) {
+        $repo = $this->getDoctrine()->getRepository('AppBundle:Post');
+
+        return $repo->getLastArticles($number, $tag);
     }
 }

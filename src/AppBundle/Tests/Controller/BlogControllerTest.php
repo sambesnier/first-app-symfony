@@ -10,7 +10,7 @@ class BlogControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/list');
+        $crawler = $client->request('GET', '/blog/list');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 
@@ -18,7 +18,7 @@ class BlogControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/details');
+        $crawler = $client->request('GET', '/blog/details/150');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 

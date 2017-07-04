@@ -1,6 +1,9 @@
 <?php
 
 namespace AppBundle\Repository;
+use AppBundle\{
+    Entity\Post
+};
 
 /**
  * TagRepository
@@ -10,4 +13,23 @@ namespace AppBundle\Repository;
  */
 class TagRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getAllTagsWithPostsCount() {
+        $qb = $this->createQueryBuilder('t')
+            ->select('t.tagName, count(p.id) as postsNumber' )
+            ->innerJoin('t.posts', 'p')
+            ->groupBy('t.tagName');
+
+        return $qb->getQuery()->getArrayResult();
+    }
+
+    public function getPostTags(Post $post) {
+        $qb = $this
+            ->createQueryBuilder('t')
+            ->select('t.tagName')
+            ->innerJoin('t.posts', 'p')
+            ->where('p.id='.$post->getId())
+            ->orderBy('t.tagName');
+
+        return $qb->getQuery()->getArrayResult();
+    }
 }
